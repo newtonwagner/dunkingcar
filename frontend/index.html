@@ -27,50 +27,90 @@
           </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="page-header">
-                    <h1>Abastecimento</h1>
-                </div>
-                <form class="form-horizontal">
-                    <fieldset>
-                        <div class="form-group">
-                            <label for="inputEmail" class="col-lg-2 control-label">Carro</label>
-                            <div class="col-lg-10">
-                                <select class="form-control" id="select">
-                                    <option>Bohemio movel</option>
-                                    <option>BoheTyr movel</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail" class="col-lg-2 control-label">Data</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" id="inputEmail" placeholder="dd/mm/aaaa">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail" class="col-lg-2 control-label">Valor Total (R$)</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" id="inputEmail" placeholder="9.999,99">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail" class="col-lg-2 control-label">Litros</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" id="inputEmail" placeholder="99,99">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-2">
-                            <button class="btn btn-default">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Abastecido</button>
-                        </div>
+        <section ng-controller="PanelController as panel">
+            <ul class="nav nav-pills">
+                <li ng-class="{ active: panel.isSelected(1) }">
+                    <a href ng-click="panel.selectTab(1)">Abastecimentos</a>
+                </li>
+                <li ng-class="{ active: panel.isSelected(2) }">
+                    <a href ng-click="panel.selectTab(2)">Novo</a>
+                </li>
+            </ul>
+
+            <div class="row" ng-show="panel.isSelected(1)">
+                <div class="col-md-12" ng-controller="AbastecimentoController as asbat">
+                    <div class="page-header">
+                        <h1>Abastecimentos</h1>
                     </div>
-                </fieldset>
-                </form>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Valor Unitario</th>
+                                <th>Litros</th>
+                                <th>Valor Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="abastecimento in asbat.abastecimentos">
+                                <td>{{abastecimento.data}}</td>
+                                <td>{{abastecimento.valorUnitario | currency }}</td>
+                                <td>{{abastecimento.litros}}</td>
+                                <td>{{abastecimento.valorUnitario * abastecimento.litros | currency }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+
+            <div class="row" ng-show="panel.isSelected(2)">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h1>Abastecimento</h1>
+                    </div>
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-lg-2 control-label">Carro</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control" id="select">
+                                        <option>Classic</option>
+                                        <option>J3 Turin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputData" class="col-lg-2 control-label">Data</label>
+                                <div class="col-lg-10">
+                                    <input type="date" min="2014-01-01" class="form-control" id="inputData" placeholder="dd/mm/aaaa">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-lg-2 control-label">Valor Total (R$)</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="inputEmail" placeholder="9.999,99">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-lg-2 control-label">Litros</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="inputEmail" placeholder="99,99">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                <button class="btn btn-default">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Abastecido</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+
     </div>
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
